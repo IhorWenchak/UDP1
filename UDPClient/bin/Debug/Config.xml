@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
-	<Parameter name="lower">
-		<Value>10</Value>    
-	</Parameter>
-	<Parameter name="upper">
-		<Value>50</Value>    
-	</Parameter> 
 	<Parameter name="multicastIp">
-		<Value>""</Value>    
+		<Value>"239.255.255.255"</Value>    
 	</Parameter>    
 </root>

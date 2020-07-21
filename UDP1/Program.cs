@@ -20,7 +20,7 @@ namespace UDPServer
 		static double maxValue = 0;
 		static double minValue = 0;
 		static string strIP = String.Empty;
-		static int countSend = 0;
+		static UInt32 countSend = 0;
 
 
 
@@ -68,7 +68,7 @@ namespace UDPServer
 
                 while (true)
                 {
-					countSend++ ;
+					unchecked { countSend++; };
 					
 					var num = rnd.NextDouble() * (maxValue - minValue) + minValue;
 

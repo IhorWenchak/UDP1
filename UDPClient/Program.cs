@@ -22,7 +22,7 @@ namespace UDPClient
         static long counter = 0;
         static long uniqueCounter = 0;
 
-        static int precision = 1000;
+        static readonly int precision;
 
         static double _mean = 0;
         static double _dSquared = 0;
@@ -36,7 +36,9 @@ namespace UDPClient
         //static ConcurrentDictionary<long, long> receivedData = new ConcurrentDictionary<long, long>(4, 1024);
         static ConcurrentQueue<double> receiverBuffer = new ConcurrentQueue<double>();
 
-		static int sendCounter = 0;
+		static UInt32 sendCounter = 0;
+
+        static long _lostDatagramsCounter = 0;
 
 		[STAThread]
         static void Main(string[] args)
@@ -99,6 +101,7 @@ namespace UDPClient
                         if (cki.Key == ConsoleKey.Enter)
                         {
                             Console.WriteLine($"Counter={counter}");
+                            Console.WriteLine($"Lost packets={_lostDatagramsCounter}");
                             Console.WriteLine($"Mean={_mean}");
                             Console.WriteLine($"Standart Deviation={_sampleStdev}");
                             Console.WriteLine($"Median={_median}");
@@ -133,10 +136,10 @@ namespace UDPClient
                     UdpClient uClient = new UdpClient(LocalPort);
                     IPEndPoint ipEnd = null;
 					//JoinMulticastGroup method subscribes the UdpClient to a multicast group using the specified IPAddress
-					//uClient.JoinMulticastGroup(RemoteIPAddr, 50);
+					uClient.JoinMulticastGroup(RemoteIPAddr, 50);
 					//receiving datagramm
 					byte[] responce = uClient.Receive(ref ipEnd);
-					sendCounter++;
+					unchecked { sendCounter++; };
 					//conversion to a string
 					string strResult = Encoding.Unicode.GetString(responce);
 					int pos = strResult.LastIndexOf('|');
@@ -150,10 +153,12 @@ namespace UDPClient
                         receiverBuffer.Enqueue(resD);
 					}
 
-					int resCount;
-					if (int.TryParse(sendCount, out resCount))
+					UInt32 resCount;
+					if (UInt32.TryParse(sendCount, out resCount))
 					{
-						int difPacks = resCount - sendCounter;
+						UInt32 difPacks = unchecked(resCount - sendCounter);
+                        
+                        Interlocked.Add(ref _lostDatagramsCounter, Convert.ToInt64(difPacks));
 					}
 					uClient.Close();
                 }
