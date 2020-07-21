@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
-	<Limit name="lower">
+	<Parameter name="lower">
 		<Value>10</Value>    
-	</Limit>
-	<Limit name="upper">
+	</Parameter>
+	<Parameter name="upper">
 		<Value>50</Value>    
-	</Limit> 
-	<Limit name="multicastIp">
+	</Parameter> 
+	<Parameter name="multicastIp">
 		<Value>"224.0.0.0"</Value>    
-	</Limit>    
+	</Parameter>    
 </root>

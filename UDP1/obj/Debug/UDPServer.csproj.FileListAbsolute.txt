@@ -8,7 +8,6 @@ C:\Playground\UDP1\UDP1\obj\Debug\UDP1.pdb
 E:\UDP1\UDP1\bin\Debug\UDP1.exe.config
 E:\UDP1\UDP1\bin\Debug\UDP1.exe
 E:\UDP1\UDP1\bin\Debug\UDP1.pdb
-E:\UDP1\UDP1\obj\Debug\UDPServer.csprojAssemblyReference.cache
 E:\UDP1\UDP1\obj\Debug\UDPServer.csproj.CoreCompileInputs.cache
 E:\UDP1\UDP1\obj\Debug\UDP1.exe
 E:\UDP1\UDP1\obj\Debug\UDP1.pdb

@@ -16,9 +16,12 @@ namespace UDPServer
         static int RemotePort;
         static int LocalPort;
         static IPAddress RemoteIPAddr;
+
 		static double maxValue = 0;
 		static double minValue = 0;
-		static string strIP = String.Empty; 
+		static string strIP = String.Empty;
+
+
 
 		[STAThread]
         static void Main(string[] args)
@@ -30,7 +33,7 @@ namespace UDPServer
 			foreach (XmlNode node in xDoc.DocumentElement)
 			{
 				string name = node.Attributes[0].Value;
-				
+
 				if (name == "lower")
 				{
 					minValue = double.Parse(node["Value"].InnerText); ;
@@ -43,7 +46,7 @@ namespace UDPServer
 
 				if (name == "multicastIp")
 				{
-					strIP = node["Value"].InnerText ;
+					strIP = node["Value"].InnerText;
 				}
 			}
 
@@ -52,18 +55,15 @@ namespace UDPServer
                 Console.SetWindowSize(40, 20);
                 Console.Title = "Server";
                 RemoteIPAddr = IPAddress.Parse("127.0.0.1");
-
-				RemotePort = 8082;
+                RemotePort = 8082;
                 LocalPort = 8081;
 
 				if (strIP.Length > 0)
 				{
 					RemoteIPAddr = IPAddress.Parse(strIP);
 				}
-					
 
-
-				Random rnd = new Random();
+	           Random rnd = new Random();
 
                 while (true)
                 {
@@ -81,9 +81,8 @@ namespace UDPServer
         {
             UdpClient uClient = new UdpClient();
             //connecting to a remote host
-            IPEndPoint ipEnd = new IPEndPoint(RemoteIPAddr, RemotePort);		
-
-			try
+            IPEndPoint ipEnd = new IPEndPoint(RemoteIPAddr, RemotePort);
+            try
             {
                 byte[] bytes = Encoding.Unicode.GetBytes(datagramm);
                 uClient.Send(bytes, bytes.Length, ipEnd);
