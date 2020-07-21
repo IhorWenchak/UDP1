@@ -84,7 +84,7 @@ namespace UDPServer
             IPEndPoint ipEnd = new IPEndPoint(RemoteIPAddr, RemotePort);
 			
 			//JoinMulticastGroup method subscribes the UdpClient to a multicast group using the specified IPAddress
-			uClient.JoinMulticastGroup(RemoteIPAddr);
+			uClient.JoinMulticastGroup(RemoteIPAddr, 50);
 
 			try
             {
