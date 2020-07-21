@@ -37,10 +37,27 @@ namespace UDPClient
             ConsoleKeyInfo cki = new ConsoleKeyInfo();
             try
             {
+				XmlDocument xDoc = new XmlDocument();
+				xDoc.Load("Config.xml");
+
+				foreach (XmlNode node in xDoc.DocumentElement)
+				{
+					string name = node.Attributes[0].Value;
+					
+					if (name == "multicastIp")
+					{
+						strIP = node["Value"].InnerText;
+					}
+				}
 
 				Console.SetWindowSize(40, 20);
                 Console.Title = "Client";
-                RemoteIPAddr = IPAddress.Parse("127.0.0.1");
+				RemoteIPAddr = IPAddress.Parse("127.0.0.1");
+					
+			if (strIP.Length > 0)
+				{
+					RemoteIPAddr = IPAddress.Parse(strIP);
+				}
 
 				RemotePort = 8081;
                 LocalPort = 8082;
@@ -99,8 +116,10 @@ namespace UDPClient
                     //connection to the local host
                     UdpClient uClient = new UdpClient(LocalPort);
                     IPEndPoint ipEnd = null;
-                    //receiving datagramm
-                    byte[] responce = uClient.Receive(ref ipEnd);
+					//JoinMulticastGroup method subscribes the UdpClient to a multicast group using the specified IPAddress
+					uClient.JoinMulticastGroup(RemoteIPAddr, 50);
+					//receiving datagramm
+					byte[] responce = uClient.Receive(ref ipEnd);
                     //conversion to a string
                     string strResult = Encoding.Unicode.GetString(responce);
                     double resD;
