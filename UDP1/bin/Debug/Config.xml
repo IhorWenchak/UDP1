@@ -7,6 +7,6 @@
 		<Value>50</Value>    
 	</Parameter> 
 	<Parameter name="multicastIp">
-		<Value>"224.0.0.0"</Value>    
+		<Value>""</Value>    
 	</Parameter>    
 </root>

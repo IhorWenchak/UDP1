@@ -20,6 +20,7 @@ namespace UDPServer
 		static double maxValue = 0;
 		static double minValue = 0;
 		static string strIP = String.Empty;
+		static int countSend = 0;
 
 
 
@@ -58,7 +59,7 @@ namespace UDPServer
                 RemotePort = 8082;
                 LocalPort = 8081;
 
-				if (strIP.Length > 0)
+				if (strIP.Length > 5)
 				{
 					RemoteIPAddr = IPAddress.Parse(strIP);
 				}
@@ -67,8 +68,13 @@ namespace UDPServer
 
                 while (true)
                 {
-                    var num = rnd.NextDouble() * (maxValue - minValue) + minValue;
-                    SendData(num.ToString("0.000"));
+					countSend++ ;
+					
+					var num = rnd.NextDouble() * (maxValue - minValue) + minValue;
+
+					string numStr = String.Format("{0}|{1}", num.ToString("0.000"), countSend.ToString());
+
+					SendData(numStr);
                 }
             }
             catch (Exception exc)

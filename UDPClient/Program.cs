@@ -36,7 +36,9 @@ namespace UDPClient
         //static ConcurrentDictionary<long, long> receivedData = new ConcurrentDictionary<long, long>(4, 1024);
         static ConcurrentQueue<double> receiverBuffer = new ConcurrentQueue<double>();
 
-        [STAThread]
+		static int sendCounter = 0;
+
+		[STAThread]
         static void Main(string[] args)
         {
             ConsoleKeyInfo cki = new ConsoleKeyInfo();
@@ -62,7 +64,7 @@ namespace UDPClient
                 RemotePort = 8081;
                 LocalPort = 8082;
 
-				if (strIP.Length > 0)
+				if (strIP.Length > 5)
 				{
 					RemoteIPAddr = IPAddress.Parse(strIP);
 				}
@@ -131,18 +133,29 @@ namespace UDPClient
                     UdpClient uClient = new UdpClient(LocalPort);
                     IPEndPoint ipEnd = null;
 					//JoinMulticastGroup method subscribes the UdpClient to a multicast group using the specified IPAddress
-					uClient.JoinMulticastGroup(RemoteIPAddr, 50);
+					//uClient.JoinMulticastGroup(RemoteIPAddr, 50);
 					//receiving datagramm
 					byte[] responce = uClient.Receive(ref ipEnd);
-                    //conversion to a string
-                    string strResult = Encoding.Unicode.GetString(responce);
-                    double resD;
+					sendCounter++;
+					//conversion to a string
+					string strResult = Encoding.Unicode.GetString(responce);
+					int pos = strResult.LastIndexOf('|');
+					string sendCount = strResult.Substring(pos+1);
+					strResult = strResult.Substring(0, pos);
+
+					double resD;
                     bool success = double.TryParse(strResult, out resD);
                     if(success)
                     {
                         receiverBuffer.Enqueue(resD);
-                    }
-                    uClient.Close();
+					}
+
+					int resCount;
+					if (int.TryParse(sendCount, out resCount))
+					{
+						int difPacks = resCount - sendCounter;
+					}
+					uClient.Close();
                 }
             }
             catch (SocketException sockEx)
