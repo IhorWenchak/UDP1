@@ -1,0 +1,13 @@
+C:\Playground\UDP1\UDPClient\bin\Debug\UDPClient.exe.config
+C:\Playground\UDP1\UDPClient\bin\Debug\UDPClient.exe
+C:\Playground\UDP1\UDPClient\bin\Debug\UDPClient.pdb
+C:\Playground\UDP1\UDPClient\obj\Debug\UDPClient.csprojAssemblyReference.cache
+C:\Playground\UDP1\UDPClient\obj\Debug\UDPClient.csproj.CoreCompileInputs.cache
+C:\Playground\UDP1\UDPClient\obj\Debug\UDPClient.exe
+C:\Playground\UDP1\UDPClient\obj\Debug\UDPClient.pdb
+E:\UDP1\UDPClient\bin\Debug\UDPClient.exe.config
+E:\UDP1\UDPClient\bin\Debug\UDPClient.exe
+E:\UDP1\UDPClient\bin\Debug\UDPClient.pdb
+E:\UDP1\UDPClient\obj\Debug\UDPClient.csproj.CoreCompileInputs.cache
+E:\UDP1\UDPClient\obj\Debug\UDPClient.exe
+E:\UDP1\UDPClient\obj\Debug\UDPClient.pdb
